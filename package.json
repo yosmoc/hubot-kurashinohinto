@@ -4,25 +4,24 @@
   "version": "0.0.0",
   "author": "samurai20000 <samurai20000___@___gmail.com>",
   "license": "MIT",
-
   "keywords": "hubot, hubot-scripts",
-
   "repository": {
     "type": "git",
     "url": "git://github.com/hubot-scripts/hubot-kurashinohinto.git"
   },
-
   "bugs": {
     "url": "https://github.com/hubot-scripts/hubot-kurashinohinto/issues"
   },
-
   "dependencies": {
+    "cheerio": "^0.18.0",
+    "coffee-script": "^1.8.0",
+    "cron": "^1.0.5",
+    "request": "^2.51.0",
+    "time": "^0.11.0"
   },
-
   "peerDependencies": {
     "hubot": "2.x"
   },
-
   "devDependencies": {
     "hubot": "2.x",
     "mocha": "*",
@@ -34,9 +33,7 @@
     "matchdep": "~0.1.2",
     "grunt-contrib-watch": "~0.5.3"
   },
-
   "main": "index.coffee",
-
   "scripts": {
     "test": "grunt test"
   }

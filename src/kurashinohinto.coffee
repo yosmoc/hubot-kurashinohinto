@@ -1,22 +1,40 @@
 # Description
-#   暮らしのヒント集
+#   Kurashi-no-hinto 
 #
 # Configuration:
-#   LIST_OF_ENV_VARS_TO_SET
+#   None
 #
 # Commands:
-#   hubot hello - <what the respond trigger does>
-#   orly - <what the hear trigger does>
+#   hubot hinto - returns today's kurashi no hinto
 #
 # Notes:
-#   <optional notes required for the script>
+#   None
 #
 # Author:
 #   samurai20000 <samurai20000___@___gmail.com>
 
-module.exports = (robot) ->
-  robot.respond /hello/, (msg) ->
-    msg.reply "hello!"
+request = require 'request'
+cheerio = require 'cheerio'
+cron = require('cron').CronJob
+room = "#general"
 
-  robot.hear /orly/, ->
-    msg.send "yarly"
+module.exports = (robot) ->
+
+  hint = (msg) ->
+    url = 'https://www.kurashi-no-techo.co.jp/inc_hint'
+    
+    request url, (err, res) ->
+      if !err && res.statusCode == 200
+        $ = cheerio.load res.body
+        date = $('dt > span').text()
+        content = $('p').text()
+        robot.send {room: room}, date + ' の暮らしのヒントです。\n' + content
+      else
+        robot.send {room: room}, '頑張って探してみたのですが…本日はヒントがないようです。'
+      
+  robot.respond /hint/, (msg) ->
+    hint(msg)
+
+  new cron '0 15 * * 1-5', ->
+    hint(msg)
+  , null, true, 'Asia/Tokyo'
