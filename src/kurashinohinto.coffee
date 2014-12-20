@@ -35,6 +35,6 @@ module.exports = (robot) ->
   robot.respond /hint/, (msg) ->
     hint(msg)
 
-  new cron '0 15 * * 1-5', ->
+  new cron '0 15 * * 1-5', (msg) ->
     hint(msg)
   , null, true, 'Asia/Tokyo'
