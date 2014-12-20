@@ -1,5 +1,5 @@
 # Description
-#   Kurashi-no-hinto 
+#   Kurashi-no-hinto
 #
 # Configuration:
 #   None
@@ -22,7 +22,7 @@ module.exports = (robot) ->
 
   hint = (msg) ->
     url = 'https://www.kurashi-no-techo.co.jp/inc_hint'
-    
+
     request url, (err, res) ->
       if !err && res.statusCode == 200
         $ = cheerio.load res.body
@@ -31,7 +31,7 @@ module.exports = (robot) ->
         robot.send {room: room}, date + ' の暮らしのヒントです。\n' + content
       else
         robot.send {room: room}, '頑張って探してみたのですが…本日はヒントがないようです。'
-      
+
   robot.respond /hint/, (msg) ->
     hint(msg)
 
