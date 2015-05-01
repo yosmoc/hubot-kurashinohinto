@@ -26,9 +26,9 @@ module.exports = (robot) ->
     request url, (err, res) ->
       if !err && res.statusCode == 200
         $ = cheerio.load res.body
-        date = $('dt > span').text()
-        content = $('p').text()
-        robot.send {room: room}, date + ' の暮らしのヒントです。\n' + content
+        title = $('dt').text()
+        content = $('dd > p').text()
+        robot.send {room: room}, title + '\n' + content
       else
         robot.send {room: room}, '頑張って探してみたのですが…本日はヒントがないようです。'
 
